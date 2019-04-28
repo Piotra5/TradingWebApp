@@ -1,0 +1,78 @@
+﻿@model InstrumentViewModel
+@using TradingApp.Models.Instruments
+@{
+    ViewData["Title"] = "Add instrument";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div>
+    <div>
+        <form asp-controller="Instrument" asp-action="Add" method="POST">
+            <h4>Please input informations of the instrument.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label>Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvailableFrom"></label>
+                <div class='input-group date' id='finishscheduledatetime'>
+                    <span class="input-group-addon float-left">
+                        <span asp-validation-for="AvailableFrom" class="text-danger glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <input type="text" asp-for="AvailableFrom" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExpirationDate"></label>
+                <div class='input-group date' id='finishscheduledatetime'>
+                    <span class="input-group-addon float-left">
+                        <span asp-validation-for="ExpirationDate" class="text-danger glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <input type="text" asp-for="AvailableFrom" class="form-control" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Add</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    @* $$$$ DateTimePicker Scripts $$$$ *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    @*asp-fallback-src="~/js/bootstrap-datetimepicker.min.js"
+        asp-fallback-test="datetimepicker()"
+        crossorigin="anonymous"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">*@
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#startscheduledatetime').datetimepicker({
+                locale: 'pl',
+                //inline: true,
+                //sideBySide: true,
+                stepping: 15
+            });
+        });
+        $(function () {
+            $('#finishscheduledatetime').datetimepicker({
+                locale: 'pl',
+                stepping: 15
+            });
+        });
+    </script>
+
+}

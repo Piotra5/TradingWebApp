@@ -1,7 +1,83 @@
-﻿
+﻿@model InstrumentsListViewModel
+@using TradingApp.Models.Instruments
+@using System.Collections.Generic
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Instruments management";
 }
+<div>
+    <form asp-controller="Instrument" asp-action="Add" method="GET">
+        <button type="submit" style="margin-top: 20px" class="btn btn-sm btn-success d-none d-md-inline-block">
+            Add new instrument
+        </button>
+    </form>
 
-<h2>Index</h2>
+    @if (Model.Instruments != null)
+    {
+        <h3>Instruments</h3>
+        <div class="panel panel-default service-panel">
+            <div class="panel-heading">@ViewData["Title"]</div>
 
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Description</td>
+                        <td>Available From</td>
+                        <td>Expiration Date</td>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.Instruments)
+                {
+                <tr>
+
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <span class="timestamp">
+                            <script type="text/javascript">
+                                var entrydate = @item.AvailableFrom
+                                document.write(entrydate.toLocaleDateString());
+                                document.write(' at ');
+                                document.write(entrydate.toLocaleTimeString());
+                            </script>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="timestamp">
+                            <script type="text/javascript">
+                                var entrydate = @item.ExpirationDate
+                                document.write(entrydate.toLocaleDateString());
+                                document.write(' at ');
+                                document.write(entrydate.toLocaleTimeString());
+                            </script>
+                        </span>
+                    </td>
+                    <td>
+                        <div class="in-line">
+                            <form asp-controller="Instrument" asp-action="Delete" asp-route-id="@item.Id">
+                                <button type="submit" class="btn btn-sm btn-danger ">
+                                    Delete
+                                </button>
+                            </form>
+                            <form asp-controller="Instrument" asp-action="Edit" method="Get" asp-route-id="@item.Id">
+                                <button type="submit" class="btn btn-sm btn-warning">
+                                    Edit
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+
+                </tr>
+
+                }
+            </table>
+
+        </div>
+    }
+    else
+    {
+        <h3>Brak zaplanowanych zadań!</h3>
+    }
+
+</div>
