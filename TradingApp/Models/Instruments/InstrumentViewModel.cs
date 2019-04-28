@@ -12,21 +12,23 @@ namespace TradingApp.Models.Instruments
         public Guid Id { get; set; }
 
         [Display(Name = "Name")]
-        [Required]
+        [Required(ErrorMessage ="Name is required")]
         public String Name { get; set; }
 
         [Display(Name = "Name")]
         [StringLength(15, MinimumLength=2)]
         [RegularExpression(@"[A-Z]+[a-zA-Z]+[0-9]*")]
-        [Required]
+        [Required(ErrorMessage = "Name is required")]
         public String Description { get; set; }
 
         [Display(Name = "Expiration Date")]
         [DataType(DataType.DateTime)]
+        [Required(ErrorMessage = "Expiration Date is required")]
         public DateTimeOffset ExpirationDate { get; set; }
 
-        [Display(Name = "AvailableFrom")]
+        [Display(Name = "Start of trading date")]
         [DataType(DataType.DateTime)]
+        [Required(ErrorMessage = "Trading start Date is required")]
         public DateTimeOffset AvailableFrom { get; set; }
     }
 }
