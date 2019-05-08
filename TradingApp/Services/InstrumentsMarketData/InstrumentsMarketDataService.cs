@@ -95,43 +95,42 @@ namespace TradingApp.Services.Instruments
         }
         #endregion
 
-        #region GetListOfLastPricesAsync()
-        public async Task<List<TradableInstrumentInfo>> GetListOfAllLastPricesAsync()
-        {
-            var instrumentsData = await _context.InstrumentsMarketData
-                .ToListAsync();
+        //#region GetListOfLastPricesAsync()
+        //public async Task<List<Instrument>> GetListOfAllLastPricesAsync()
+        //{
+        //    var instrumentsData = await _context.InstrumentsMarketData
+        //        .ToListAsync();
 
-            var tradableInstruments = await GetListOfAllInstrumentsDataAsync();
+        //    var tradableInstruments = await GetListOfAllInstrumentsDataAsync();
 
-            var instrumentsDataSorted = instrumentsData.OrderBy(o => o.Date).ToList();
+        //    var instrumentsDataSorted = instrumentsData.OrderBy(o => o.DateTime).ToList();
 
-            var TradableInstrumentsData = new List<TradableInstrumentInfo>();
+        //    var InstrumentsData = new List<Instrument>();
             
-            foreach(var cInstrument in tradableInstruments)
-            {
-                foreach (var iData in instrumentsDataSorted)
-                {
-                    if(cInstrument.InstrumentId == iData.InstrumentId)
-                    {
-                        var tradableInstrument = new TradableInstrumentInfo
-                        {
-                            Name = cInstrument.Instrument.Name,
-                            ExpirationDate = cInstrument.Instrument.ExpirationDate,
-                            AvailableFrom = cInstrument.Instrument.AvailableFrom,
-                            AskPrice = iData.AskPrice,
-                            BidPrice = iData.BidPrice
+        //    foreach(var cInstrument in tradableInstruments)
+        //    {
+        //        foreach (var iData in instrumentsDataSorted)
+        //        {
+        //            if(cInstrument.InstrumentId == iData.InstrumentId)
+        //            {
+        //                var tradableInstrument = new Instrument
+        //                    Name = cInstrument.Instrument.Name,
+        //                    ExpirationDate = cInstrument.Instrument.ExpirationDate,
+        //                    AvailableFrom = cInstrument.Instrument.AvailableFrom,
+        //                    AskPrice = iData.AskPrice,
+        //                    BidPrice = iData.BidPrice
 
-                        };
-                        TradableInstrumentsData.Add(tradableInstrument);
+        //                };
+        //                InstrumentsData.Add(tradableInstrument);
 
 
-                    }
-                }
-            }
+        //            }
+        //        }
+        //    }
 
-            return TradableInstrumentsData;
-        }
-        #endregion
+        //    return InstrumentsData;
+        //}
+        //#endregion
 
         #region GetInstrumentDataById
 

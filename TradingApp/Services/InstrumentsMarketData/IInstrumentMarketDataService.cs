@@ -13,7 +13,7 @@ namespace TradingApp.Services.Instruments
         Task<bool> DeleteMarketDataAsync(Guid id);
         //Task<bool> UpdateServiceAsync(Guid id, InstrumentMarketData changedInstrumentData)
         Task<InstrumentMarketDataService[]> GetListOfAllInstrumentsDataAsync();
-        Task<List<TradableInstrumentInfo>> GetListOfAllLastPricesAsync();
+        //Task<List<Instrument>> GetListOfAllLastPricesAsync();
         Task<List<Instrument>> GetListOfAllTradableInstrumentsAsync();
     }
 }
