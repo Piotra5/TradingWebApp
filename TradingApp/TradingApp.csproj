@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Models\Instruments\InstrumentPair.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
