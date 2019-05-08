@@ -11,9 +11,25 @@ namespace TradingApp.Models.Instruments
     {
         public Guid Id { get; set; }
 
-        [Display(Name = "Name")]
+        [Display(Name = "FROM Name")]
         [Required(ErrorMessage ="Name is required")]
-        public String Name { get; set; }
+        [StringLength(15, MinimumLength=2)]
+        [RegularExpression(@"[A-Z]+[a-zA-Z]+[0-9]*")]
+        public String FromName { get; set; }
+
+        [Display(Name = "FROM Code")]
+        [StringLength(7, MinimumLength=2)]
+        [Required(ErrorMessage ="From Code is required")]
+        public String FromCode { get; set; }
+        
+        [Display(Name = "TO Name")]
+        [StringLength(77, MinimumLength=2)]
+        public String ToCode { get; set; }
+
+        [Display(Name = "TO Code")]
+        [StringLength(15, MinimumLength=2)]
+        [RegularExpression(@"[A-Z]+[a-zA-Z]+[0-9]*")]
+        public String ToName { get; set; }
 
         [Display(Name = "Name")]
         [StringLength(15, MinimumLength=2)]
