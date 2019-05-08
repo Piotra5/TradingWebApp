@@ -28,7 +28,10 @@ namespace TradingApp.Services.Instruments
             var instrument = new Instrument
             {
                 Id = Guid.NewGuid(),
-                Name = newInstrument.Name,
+                FromName = newInstrument.FromName,
+                FromCode = newInstrument.FromCode,
+                ToName = newInstrument.ToName,
+                ToCode = newInstrument.ToCode,
                 AvailableFrom = newInstrument.AvailableFrom,
                 Description = newInstrument.Description,
                 ExpirationDate = newInstrument.ExpirationDate
@@ -74,7 +77,11 @@ namespace TradingApp.Services.Instruments
 
             if (instrument != null)
             {
-                instrument.Name = changedInstrument.Name;
+                instrument.Id = Guid.NewGuid();
+                instrument.FromName = changedInstrument.FromName;
+                instrument.FromCode = changedInstrument.FromCode;
+                instrument.ToName = changedInstrument.ToName;
+                instrument.ToCode = changedInstrument.ToCode;
                 instrument.AvailableFrom = changedInstrument.AvailableFrom;
                 instrument.Description = changedInstrument.Description;
                 instrument.ExpirationDate = changedInstrument.ExpirationDate;
