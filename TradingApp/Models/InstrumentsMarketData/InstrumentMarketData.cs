@@ -10,7 +10,8 @@ namespace TradingApp.Models.InstrumentsMarketData
     {
         public Guid Id { get; set; }
         public string InstrumentId { get; set; }
-        public DateTimeOffset Date { get; set; }
+        public DateTimeOffset DateTime { get; set; }
+        public float ExchangeRate { get; set; }
         public float AskPrice { get; set; }
         public float BidPrice { get; set; }
 
