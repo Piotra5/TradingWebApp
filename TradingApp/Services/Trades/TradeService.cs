@@ -9,7 +9,7 @@ using TradingApp.Models.Trades;
 
 namespace TradingApp.Services.Trades
 {
-    public class TradeService
+    public class TradeService : ITradeService
     {
         private readonly ApplicationDbContext _context;
 

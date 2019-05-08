@@ -7,9 +7,9 @@ using TradingApp.Data;
 using TradingApp.Models.Instruments;
 using TradingApp.Models.InstrumentsMarketData;
 
-namespace TradingApp.Services.Instrument
+namespace TradingApp.Services.Instruments
 {
-    public class InstrumentsMarketDataService
+    public class InstrumentsMarketDataService : IInstrumentMarketDataService
     {
         private readonly ApplicationDbContext _context;
 

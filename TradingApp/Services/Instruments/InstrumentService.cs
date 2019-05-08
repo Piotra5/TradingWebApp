@@ -9,7 +9,7 @@ using TradingApp.Models.InstrumentsMarketData;
 
 namespace TradingApp.Services.Instruments
 {
-    public class InstrumentService
+    public class InstrumentService : IInstrumentService
     {
         private readonly ApplicationDbContext _context;
 
