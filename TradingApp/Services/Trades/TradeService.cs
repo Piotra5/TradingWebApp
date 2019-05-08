@@ -7,7 +7,7 @@ using TradingApp.Data;
 using TradingApp.Models.InstrumentsMarketData;
 using TradingApp.Models.Trades;
 
-namespace TradingApp.Services
+namespace TradingApp.Services.Trades
 {
     public class TradeService
     {

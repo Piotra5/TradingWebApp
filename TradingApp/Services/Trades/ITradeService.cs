@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TradingApp.Services.Trade
+namespace TradingApp.Services.Trades
 {
     public class ITradeService
     {
