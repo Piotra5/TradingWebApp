@@ -7,7 +7,7 @@ using TradingApp.Models.InstrumentsMarketData;
 
 namespace TradingApp.Services.Instruments
 {
-    public interface IInstrumentMarketDataService
+    public interface IInstrumentsMarketDataService
     {
         Task<bool> AddInstrumentDataAsync(InstrumentMarketDataViewModel newInstrumentData);
         Task<bool> DeleteMarketDataAsync(Guid id);

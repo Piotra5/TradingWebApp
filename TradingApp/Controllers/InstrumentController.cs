@@ -11,11 +11,11 @@ namespace TradingApp.Controllers
 {
     public class InstrumentController : Controller
     {
-        private readonly InstrumentService _instrumentService;
+        private readonly IInstrumentService _instrumentService;
 
-        public InstrumentController(InstrumentService InstrumentService)
+        public InstrumentController(IInstrumentService instrumentService)
         {
-            _instrumentService = InstrumentService;
+            _instrumentService = instrumentService;
         }
 
         public async Task<IActionResult> Index()

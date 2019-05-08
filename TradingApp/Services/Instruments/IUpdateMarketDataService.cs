@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TradingApp.Services.Instruments
 {
-    public class IUpdateMarketDataService
+    public interface IUpdateMarketDataService
     {
     }
 }

@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using TradingApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TradingApp.Services.Instruments;
+using TradingApp.Services.Trades;
 
 namespace TradingApp
 {
@@ -43,6 +45,10 @@ namespace TradingApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //services.AddSingleton<IHostedService, UpdateMarketDataService>();
+            services.AddScoped<IInstrumentsMarketDataService, InstrumentsMarketDataService>();
+            services.AddScoped<IInstrumentService, InstrumentService>();
+            //services.AddScoped<IUpdateMarketDataService, UpdateMarketDataService>();
+            services.AddScoped<ITradeService, TradeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
