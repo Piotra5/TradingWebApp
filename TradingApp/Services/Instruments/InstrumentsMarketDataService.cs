@@ -7,7 +7,7 @@ using TradingApp.Data;
 using TradingApp.Models.Instruments;
 using TradingApp.Models.InstrumentsMarketData;
 
-namespace TradingApp.Services
+namespace TradingApp.Services.Instrument
 {
     public class InstrumentsMarketDataService
     {

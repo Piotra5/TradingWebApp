@@ -6,7 +6,7 @@
 //using System.Threading;
 //using System.Threading.Tasks;
 
-//namespace TradingApp.Services
+//namespace TradingApp.Services.Instrument
 //{
 //    public class UpdateMarketDataService : BackgroundService
 //    {

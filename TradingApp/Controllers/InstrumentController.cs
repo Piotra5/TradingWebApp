@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TradingApp.Models.Instruments;
 using TradingApp.Models.InstrumentsMarketData;
-using TradingApp.Services;
+using TradingApp.Services.Instruments;
 
 namespace TradingApp.Controllers
 {
@@ -29,7 +29,7 @@ namespace TradingApp.Controllers
             return View(model);
         }
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public IActionResult Add()
         {
             var model = new InstrumentViewModel();
             return View(model);
