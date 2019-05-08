@@ -21,7 +21,8 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <td>Name</td>
+                        <td>Pair names</td>
+                        <td>Pair codes</td>
                         <td>Description</td>
                         <td>Available From</td>
                         <td>Expiration Date</td>
@@ -29,46 +30,47 @@
                 </thead>
                 @foreach (var item in Model.Instruments)
                 {
-                <tr>
+            <tr>
 
-                    <td>@item.Name</td>
-                    <td>@item.Description</td>
-                    <td>
-                        <span class="timestamp">
-                            <script type="text/javascript">
+                <td>@item.FromName / @item.ToName</td>
+                <td>@item.FromCode / @item.ToCode</td>
+                <td>@item.Description</td>
+                <td>
+                    <span class="timestamp">
+                        <script type="text/javascript">
                                 var entrydate = @item.AvailableFrom
                                 document.write(entrydate.toLocaleDateString());
                                 document.write(' at ');
                                 document.write(entrydate.toLocaleTimeString());
-                            </script>
-                        </span>
-                    </td>
-                    <td>
-                        <span class="timestamp">
-                            <script type="text/javascript">
+                        </script>
+                    </span>
+                </td>
+                <td>
+                    <span class="timestamp">
+                        <script type="text/javascript">
                                 var entrydate = @item.ExpirationDate
                                 document.write(entrydate.toLocaleDateString());
                                 document.write(' at ');
                                 document.write(entrydate.toLocaleTimeString());
-                            </script>
-                        </span>
-                    </td>
-                    <td>
-                        <div class="in-line">
-                            <form asp-controller="Instrument" asp-action="Delete" asp-route-id="@item.Id">
-                                <button type="submit" class="btn btn-sm btn-danger ">
-                                    Delete
-                                </button>
-                            </form>
-                            <form asp-controller="Instrument" asp-action="Edit" method="Get" asp-route-id="@item.Id">
-                                <button type="submit" class="btn btn-sm btn-warning">
-                                    Edit
-                                </button>
-                            </form>
-                        </div>
-                    </td>
+                        </script>
+                    </span>
+                </td>
+                <td>
+                    <div class="in-line">
+                        <form asp-controller="Instrument" asp-action="Delete" asp-route-id="@item.Id">
+                            <button type="submit" class="btn btn-sm btn-danger ">
+                                Delete
+                            </button>
+                        </form>
+                        <form asp-controller="Instrument" asp-action="Edit" method="Get" asp-route-id="@item.Id">
+                            <button type="submit" class="btn btn-sm btn-warning">
+                                Edit
+                            </button>
+                        </form>
+                    </div>
+                </td>
 
-                </tr>
+            </tr>
 
                 }
             </table>
