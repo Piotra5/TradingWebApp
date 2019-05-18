@@ -15,5 +15,7 @@ namespace TradingApp.Models.Instruments
         public DateTimeOffset AvailableFrom { get; set; }
         public DateTimeOffset ExpirationDate { get; set; }
         public String Description { get; set; }
+        public String AddedBy { get; set; }
+        public String EditedBy { get; set; }
     }
 }

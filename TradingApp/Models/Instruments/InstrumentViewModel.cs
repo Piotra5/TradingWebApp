@@ -46,5 +46,7 @@ namespace TradingApp.Models.Instruments
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "Trading start Date is required")]
         public DateTimeOffset AvailableFrom { get; set; }
+        public String AddedBy { get; set; }
+        public String EditedBy { get; set; }
     }
 }
