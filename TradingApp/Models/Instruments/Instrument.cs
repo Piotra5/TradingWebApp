@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +16,11 @@ namespace TradingApp.Models.Instruments
         public DateTimeOffset AvailableFrom { get; set; }
         public DateTimeOffset ExpirationDate { get; set; }
         public String Description { get; set; }
-        public String AddedBy { get; set; }
-        public String EditedBy { get; set; }
+
+        public IdentityUser AddedBy { get; set; }
+        public String AddedById { get; set; }
+
+        public IdentityUser EditedBy { get; set; }
+        public String EditedById { get; set; }
     }
 }
