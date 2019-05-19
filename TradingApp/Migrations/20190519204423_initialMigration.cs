@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TradingApp.Data.Migrations
+namespace TradingApp.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,7 +52,7 @@ namespace TradingApp.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -72,7 +73,7 @@ namespace TradingApp.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -152,6 +153,95 @@ namespace TradingApp.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Instruments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    FromName = table.Column<string>(nullable: true),
+                    FromCode = table.Column<string>(nullable: true),
+                    ToName = table.Column<string>(nullable: true),
+                    ToCode = table.Column<string>(nullable: true),
+                    AvailableFrom = table.Column<DateTimeOffset>(nullable: false),
+                    ExpirationDate = table.Column<DateTimeOffset>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    AddedById = table.Column<string>(nullable: true),
+                    EditedById = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Instruments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Instruments_AspNetUsers_AddedById",
+                        column: x => x.AddedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Instruments_AspNetUsers_EditedById",
+                        column: x => x.EditedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InstrumentsMarketData",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InstrumentId = table.Column<string>(nullable: true),
+                    DateTime = table.Column<DateTimeOffset>(nullable: false),
+                    ExchangeRate = table.Column<float>(nullable: false),
+                    AskPrice = table.Column<float>(nullable: false),
+                    BidPrice = table.Column<float>(nullable: false),
+                    InstrumentId1 = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InstrumentsMarketData", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InstrumentsMarketData_Instruments_InstrumentId1",
+                        column: x => x.InstrumentId1,
+                        principalTable: "Instruments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Trades",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InstrumentId = table.Column<string>(nullable: true),
+                    IdentityUserId = table.Column<string>(nullable: true),
+                    OpeningPrice = table.Column<float>(nullable: false),
+                    Size = table.Column<float>(nullable: false),
+                    IsOpen = table.Column<bool>(nullable: false),
+                    ClosingPrice = table.Column<float>(nullable: true),
+                    StopLoss = table.Column<float>(nullable: true),
+                    TargetPrice = table.Column<float>(nullable: true),
+                    Laverage = table.Column<int>(nullable: false),
+                    Long = table.Column<bool>(nullable: false),
+                    InstrumentMId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trades", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Trades_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Trades_Instruments_InstrumentMId",
+                        column: x => x.InstrumentMId,
+                        principalTable: "Instruments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -161,7 +251,8 @@ namespace TradingApp.Data.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -187,7 +278,33 @@ namespace TradingApp.Data.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Instruments_AddedById",
+                table: "Instruments",
+                column: "AddedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Instruments_EditedById",
+                table: "Instruments",
+                column: "EditedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InstrumentsMarketData_InstrumentId1",
+                table: "InstrumentsMarketData",
+                column: "InstrumentId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trades_IdentityUserId",
+                table: "Trades",
+                column: "IdentityUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trades_InstrumentMId",
+                table: "Trades",
+                column: "InstrumentMId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -208,7 +325,16 @@ namespace TradingApp.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "InstrumentsMarketData");
+
+            migrationBuilder.DropTable(
+                name: "Trades");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Instruments");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -2,19 +2,24 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TradingApp.Data;
 
-namespace TradingApp.Data.Migrations
+namespace TradingApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190519204423_initialMigration")]
+    partial class initialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -34,7 +39,8 @@ namespace TradingApp.Data.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -42,7 +48,8 @@ namespace TradingApp.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType");
 
@@ -103,7 +110,8 @@ namespace TradingApp.Data.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -111,7 +119,8 @@ namespace TradingApp.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType");
 
@@ -182,15 +191,29 @@ namespace TradingApp.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("AddedById");
+
                     b.Property<DateTimeOffset>("AvailableFrom");
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("EditedById");
+
                     b.Property<DateTimeOffset>("ExpirationDate");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("FromCode");
+
+                    b.Property<string>("FromName");
+
+                    b.Property<string>("ToCode");
+
+                    b.Property<string>("ToName");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddedById");
+
+                    b.HasIndex("EditedById");
 
                     b.ToTable("Instruments");
                 });
@@ -204,7 +227,9 @@ namespace TradingApp.Data.Migrations
 
                     b.Property<float>("BidPrice");
 
-                    b.Property<DateTimeOffset>("Date");
+                    b.Property<DateTimeOffset>("DateTime");
+
+                    b.Property<float>("ExchangeRate");
 
                     b.Property<string>("InstrumentId");
 
@@ -296,6 +321,17 @@ namespace TradingApp.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TradingApp.Models.Instruments.Instrument", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "AddedBy")
+                        .WithMany()
+                        .HasForeignKey("AddedById");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "EditedBy")
+                        .WithMany()
+                        .HasForeignKey("EditedById");
                 });
 
             modelBuilder.Entity("TradingApp.Models.InstrumentsMarketData.InstrumentMarketDataService", b =>
