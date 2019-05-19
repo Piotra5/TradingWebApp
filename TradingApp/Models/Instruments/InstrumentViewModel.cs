@@ -14,21 +14,23 @@ namespace TradingApp.Models.Instruments
         [Display(Name = "FROM Name")]
         [Required(ErrorMessage ="Name is required")]
         [StringLength(15, MinimumLength=2)]
-        [RegularExpression(@"[A-Z]+[a-zA-Z]+[0-9]*")]
+        [RegularExpression(@"[a-zA-Z0-9\s]*")]
         public String FromName { get; set; }
 
         [Display(Name = "FROM Code")]
         [StringLength(7, MinimumLength=2)]
         [Required(ErrorMessage ="From Code is required")]
+        [RegularExpression(@"[a-zA-Z0-9\s]*")]
         public String FromCode { get; set; }
         
         [Display(Name = "TO Name")]
         [StringLength(77, MinimumLength=2)]
+        [RegularExpression(@"[a-zA-Z0-9\s]*")]
         public String ToCode { get; set; }
 
         [Display(Name = "TO Code")]
         [StringLength(15, MinimumLength=2)]
-        [RegularExpression(@"[A-Z]+[a-zA-Z]+[0-9]*")]
+        [RegularExpression(@"[a-zA-Z0-9\s]*")]
         public String ToName { get; set; }
 
         [Display(Name = "Name")]
