@@ -4,19 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TradingApp.Models.Instruments;
 using TradingApp.Models.InstrumentsMarketData;
 using TradingApp.Models.Trades;
 using TradingApp.Services;
+using TradingApp.Services.Instruments;
+using TradingApp.Services.Trades;
 
 namespace TradingApp.Controllers
 {
     public class TradeController : Controller
     {
-        private readonly TradeService _tradeService;
+        private readonly ITradeService _tradeService;
 
         private readonly UserManager<IdentityUser> _userManager;
 
-        private readonly InstrumentService _instrumentService;
+        private readonly IInstrumentService _instrumentService;
 
         private readonly InstrumentMarketDataService _instrumentDataService;
 
@@ -46,21 +49,21 @@ namespace TradingApp.Controllers
         }
         #endregion
 
-        public async Task<IActionResult> Make(TradableInstrumentInfo tradableInstrument)
-        {
-            var currentUser = await _userManager.GetUserAsync(User);
-            var model = new MakeTradeViewModel()
-            {
-                InstrumentId = tradableInstrument.InstrumentId,
-                BidPrice = tradableInstrument.BidPrice,
-                AskPrice = tradableInstrument.AskPrice,
-                IdentityUserId = currentUser.Id,
-                InstrumentName = tradableInstrument.Name,
+        //public async Task<IActionResult> Make(Instrument tradableInstrument)
+        //{
+        //    var currentUser = await _userManager.GetUserAsync(User);
+        //    var model = new MakeTradeViewModel()
+        //    {
+        //        InstrumentId = tradableInstrument.InstrumentId,
+        //        BidPrice = tradableInstrument.BidPrice,
+        //        AskPrice = tradableInstrument.AskPrice,
+        //        IdentityUserId = currentUser.Id,
+        //        InstrumentName = tradableInstrument.Name,
 
-            };
+        //    };
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         [HttpPost]
         public async Task<IActionResult> MakeTrade(MakeTradeViewModel trade)

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TradingApp.Models.InstrumentsMarketData;
 using TradingApp.Services;
+using TradingApp.Services.Instruments;
 
 namespace TradingApp.Controllers
 {
@@ -17,16 +18,16 @@ namespace TradingApp.Controllers
             _instrumentMarketDataService = InstrumentMarketDataService;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var tradableInstrumentsDataList = await _instrumentMarketDataService.GetListOfAllLastPricesAsync();
-            var TradableInstrumentsList = new TradableInstrumentsDataList()
-            {
-                TradableInstrumentsList = tradableInstrumentsDataList
-            };
+        //public async Task<IActionResult> Index()
+        //{
+        //    var tradableInstrumentsDataList = await _instrumentMarketDataService.GetListOfAllLastPricesAsync();
+        //    var TradableInstrumentsList = new TradableInstrumentsDataList()
+        //    {
+        //        TradableInstrumentsList = tradableInstrumentsDataList
+        //    };
 
-            return View(tradableInstrumentsDataList);
-        }
+        //    return View(tradableInstrumentsDataList);
+        //}
         [HttpGet]
         public IActionResult Add()
         {

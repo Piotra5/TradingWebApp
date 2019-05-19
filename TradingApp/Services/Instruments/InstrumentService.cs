@@ -35,7 +35,7 @@ namespace TradingApp.Services.Instruments
                 AvailableFrom = newInstrument.AvailableFrom,
                 Description = newInstrument.Description,
                 ExpirationDate = newInstrument.ExpirationDate,
-                AddedBy = newInstrument.AddedBy
+                AddedById = newInstrument.AddedBy
             };
 
             _context.Instruments.Add(instrument);
