@@ -39,6 +39,8 @@ namespace TradingApp.Controllers
             model.ToName = "US Dollar";
             model.FromCode = "BTC";
             model.ToCode = "USD";
+            model.Description = " kryptowaluta wprowadzona w 2009 roku przez osobę o pseudonimie Satoshi Nakamoto. " +
+                "Nazwa odnosi się także do używającego jej otwartoźródłowego oprogramowania oraz sieci peer-to-peer, którą formuje. ";
             model.AvailableFrom = DateTimeOffset.UtcNow;
             model.ExpirationDate = DateTimeOffset.UtcNow.AddDays(186);
             return View(model);

@@ -17,21 +17,20 @@
                 <span asp-validation-for="FromName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Name</label>
+                <label>Code</label>
                 <input asp-for="FromCode" class="form-control" />
                 <span asp-validation-for="FromCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Name</label>
+                <label>To Name</label>
                 <input asp-for="ToName" class="form-control" />
                 <span asp-validation-for="ToName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Name</label>
+                <label>To Code</label>
                 <input asp-for="ToCode" class="form-control" />
                 <span asp-validation-for="ToCode" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label>Description</label>
                 <input asp-for="Description" class="form-control" />
@@ -39,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="AvailableFrom"></label>
-                <div class='input-group date' id='finishscheduledatetime'>
+                <div class='input-group date' id='availableDateTime'>
                     <span class="input-group-addon float-left">
                         <span asp-validation-for="AvailableFrom" class="text-danger glyphicon glyphicon-calendar"></span>
                     </span>
@@ -48,11 +47,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="ExpirationDate"></label>
-                <div class='input-group date' id='finishscheduledatetime'>
+                <div class='input-group date' id='expirationdatetime'>
                     <span class="input-group-addon float-left">
                         <span asp-validation-for="ExpirationDate" class="text-danger glyphicon glyphicon-calendar"></span>
                     </span>
-                    <input type="text" asp-for="AvailableFrom" class="form-control" />
+                    <input type="text" asp-for="ExpirationDate" class="form-control" />
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Add</button>
@@ -61,9 +60,8 @@
 </div>
 
 @section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
 
-    @* $$$$ DateTimePicker Scripts $$$$ *@
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     @*asp-fallback-src="~/js/bootstrap-datetimepicker.min.js"
         asp-fallback-test="datetimepicker()"
@@ -76,19 +74,18 @@
 
     <script type="text/javascript">
         $(function () {
-            $('#startscheduledatetime').datetimepicker({
-                locale: 'pl',
+            $('#availableDateTime').datetimepicker({
+                //locale: 'pl',
                 //inline: true,
                 //sideBySide: true,
                 stepping: 15
             });
         });
         $(function () {
-            $('#finishscheduledatetime').datetimepicker({
-                locale: 'pl',
+            $('#expirationdatetime').datetimepicker({
+                //locale: 'pl',
                 stepping: 15
             });
         });
     </script>
-
 }
