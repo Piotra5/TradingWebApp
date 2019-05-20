@@ -49,12 +49,25 @@ namespace TradingApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(InstrumentViewModel newInstrument)
         {
-            newInstrument.Id = new Guid();
-            newInstrument.AddedBy = _userManager.GetUserAsync(User).Id.ToString();
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index");
             }
+            var currentUser = await _userManager.GetUserAsync(User);
+            //newInstrument.AddedBy = _userManager.GetUserAsync(User).Id.ToString();
+
+            var instrument = new Instrument
+            {
+                FromName = newInstrument.FromName,
+                ToName = newInstrument.ToName,
+                FromCode = newInstrument.FromCode,
+                ToCode = newInstrument.ToCode,
+                Description = newInstrument.Description,
+                AvailableFrom = newInstrument.AvailableFrom,
+                ExpirationDate = newInstrument.ExpirationDate,
+                AddedById = currentUser.Id
+
+            };
 
 
             var successful = await _instrumentService

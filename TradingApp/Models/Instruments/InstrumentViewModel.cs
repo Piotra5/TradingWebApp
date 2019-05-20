@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace TradingApp.Models.Instruments
 {
     public class InstrumentViewModel
-    {
-        public Guid Id { get; set; }
+    { 
 
         [Display(Name = "FROM Name")]
         [Required(ErrorMessage ="Name is required")]
